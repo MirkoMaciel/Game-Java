@@ -19,7 +19,8 @@ public class Main {
 		window.setLocationRelativeTo(null); //Se utiliza para posicionar el Frame relativamente sobre otro componente sin coordenadas especificas (Dinamico)
 		window.setVisible(true); //Visibilidad de la ventana
 		
-
+		gamePanel.startGameThread();
+		
 	}
 
 }
