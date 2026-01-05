@@ -7,6 +7,8 @@ import java.awt.Graphics2D;
 
 import javax.swing.JPanel;
 
+import entity.Player;
+
 public class GamePanel extends JPanel implements Runnable { //Clase que hereda al JPANEL 
 	
 	//Propiedad de la herencia, una subclase de JPANEL que contiene todas las funciones de la clase padre
@@ -16,7 +18,7 @@ public class GamePanel extends JPanel implements Runnable { //Clase que hereda a
 	//CONFIGURACIÓN DE PANTALLA
 	final int originalTileSize = 16; //16px * 16px tile
 	final int scale = 3; //escala los tiles  **= 16x3 = 48
-	final int finalTile = originalTileSize * scale; // Pixel escalado 
+	public final int finalTile = originalTileSize * scale; // Pixel escalado 
 	final int maxScreenCol = 16; //tamaño de columna de azulejos
 	final int maxScreenRow = 12; //tamaño de filas de azulejes
 	//relación de 4x3
@@ -32,10 +34,13 @@ public class GamePanel extends JPanel implements Runnable { //Clase que hereda a
 	//Hilo
 	Thread gameThread;
 	
+	//Player
+	Player player = new Player(this,keyH); //Import class KeyHandler
+	
 	//Seteo posicion personaje 
 	int playerX = 100;
 	int playerY = 100;
-	int playerSpeed = 4;
+	int playerSpeed = 6;
 	
 	
 	//CONSTRUCTOR
@@ -128,15 +133,8 @@ public class GamePanel extends JPanel implements Runnable { //Clase que hereda a
 	
 	public void update () {
 		
-		if (keyH.upPressed == true) {
-			playerY -=  playerSpeed;
-		}else if (keyH.downPressed == true) {
-			playerY += playerSpeed;
-		}else if (keyH.leftPressed == true) {
-			playerX -=  playerSpeed;
-		}else if(keyH.rightPressed == true) {
-			playerX += playerSpeed;
-		}
+		player.update();
+		//System.out.println("FPS=" +FPS);
 	}
 	
 	public void paintComponent(Graphics g) {
@@ -146,9 +144,7 @@ public class GamePanel extends JPanel implements Runnable { //Clase que hereda a
 		
 		//Provee funciones más sofisticadas sobre funciones, matematica y geometrica para dibujar
 		
-		g2.setColor(Color.white); //Seteo el color para dibujar objetos
-		
-		g2.fillRect(playerX, playerY, finalTile, finalTile); //X,Y,WIDTH,HEIGTH parametros para dibujar, coordenadas X e Y y la altura y ancho del dibujo
+		player.draw(g2);
 		
 		g2.dispose();
 	}
