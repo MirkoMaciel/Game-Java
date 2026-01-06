@@ -8,6 +8,7 @@ import java.awt.Graphics2D;
 import javax.swing.JPanel;
 
 import entity.Player;
+import tile.TileManager;
 
 public class GamePanel extends JPanel implements Runnable { //Clase que hereda al JPANEL 
 	
@@ -19,8 +20,8 @@ public class GamePanel extends JPanel implements Runnable { //Clase que hereda a
 	final int originalTileSize = 16; //16px * 16px tile
 	final int scale = 3; //escala los tiles  **= 16x3 = 48
 	public final int finalTile = originalTileSize * scale; // Pixel escalado 
-	final int maxScreenCol = 16; //tamaño de columna de azulejos
-	final int maxScreenRow = 12; //tamaño de filas de azulejes
+	public final int maxScreenCol = 16; //tamaño de columna de azulejos
+	public final int maxScreenRow = 12; //tamaño de filas de azulejes
 	//relación de 4x3
 	final int screenWidth = finalTile * maxScreenCol; //Tamaño del ancho de la ventana 768px
 	final int screenHeigth = finalTile * maxScreenRow; //Tamaño del alto de la ventana 576px
@@ -36,6 +37,9 @@ public class GamePanel extends JPanel implements Runnable { //Clase que hereda a
 	
 	//Player
 	Player player = new Player(this,keyH); //Import class KeyHandler
+	
+	//Tile manager background
+	TileManager tileM = new TileManager(this);
 	
 	//Seteo posicion personaje 
 	int playerX = 100;
@@ -143,7 +147,7 @@ public class GamePanel extends JPanel implements Runnable { //Clase que hereda a
 		Graphics2D g2 = (Graphics2D)g; //Defino la class Graphics2D para Grapichs g
 		
 		//Provee funciones más sofisticadas sobre funciones, matematica y geometrica para dibujar
-		
+		tileM.draw(g2); //El background debe ser dibujado antes que el jugador, si no queda detras del background
 		player.draw(g2);
 		
 		g2.dispose();
