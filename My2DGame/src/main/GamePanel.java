@@ -23,8 +23,8 @@ public class GamePanel extends JPanel implements Runnable { //Clase que hereda a
 	public final int maxScreenCol = 16; //tamaño de columna de azulejos
 	public final int maxScreenRow = 12; //tamaño de filas de azulejes
 	//relación de 4x3
-	final int screenWidth = finalTile * maxScreenCol; //Tamaño del ancho de la ventana 768px
-	final int screenHeigth = finalTile * maxScreenRow; //Tamaño del alto de la ventana 576px
+	public final int screenWidth = finalTile * maxScreenCol; //Tamaño del ancho de la ventana 768px
+	public final int screenHeight = finalTile * maxScreenRow; //Tamaño del alto de la ventana 576px
 	
 	//FPS
 	int FPS = 60;
@@ -36,22 +36,24 @@ public class GamePanel extends JPanel implements Runnable { //Clase que hereda a
 	Thread gameThread;
 	
 	//Player
-	Player player = new Player(this,keyH); //Import class KeyHandler
+	public Player player = new Player(this,keyH); //Import class KeyHandler
 	
 	//Tile manager background
 	TileManager tileM = new TileManager(this);
 	
-	//Seteo posicion personaje 
-	int playerX = 100;
-	int playerY = 100;
-	int playerSpeed = 6;
+	//WOLRD SETTING
+	
+	public final int maxWorldCol = 50;
+	public final int maxWorldRow = 50;
+	public final int worldWidth = finalTile * maxWorldCol;
+	public final int worldHeigth = finalTile * maxWorldRow;
 	
 	
 	//CONSTRUCTOR
 	
 	public GamePanel () {
 		
-		this.setPreferredSize(new Dimension(screenWidth,screenHeigth)); //Set tamaño de la pantalla
+		this.setPreferredSize(new Dimension(screenWidth,screenHeight)); //Set tamaño de la pantalla
 		this.setBackground(Color.black); //color del panel
 		this.setDoubleBuffered(true);
 		this.addKeyListener(keyH);//Agrego al panel el controlador de teclas
