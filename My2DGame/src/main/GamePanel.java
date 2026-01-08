@@ -41,6 +41,9 @@ public class GamePanel extends JPanel implements Runnable { //Clase que hereda a
 	//Tile manager background
 	TileManager tileM = new TileManager(this);
 	
+	//Collision checker
+	public CollisionChecker cChecker = new CollisionChecker(this);
+	
 	//WOLRD SETTING
 	
 	public final int maxWorldCol = 50;

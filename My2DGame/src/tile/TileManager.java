@@ -13,8 +13,8 @@ import main.GamePanel;
 public class TileManager {
 
 	GamePanel gp;
-	Tile[] tile;
-	int mapTileNumber[][]; // matriz sin dimensión
+	public Tile[] tile;
+	public int mapTileNumber[][]; // matriz sin dimensión
 
 	public TileManager(GamePanel gp) {
 		this.gp = gp;
@@ -74,18 +74,22 @@ public class TileManager {
 
 			tile[1] = new Tile();
 			tile[1].image = ImageIO.read(getClass().getResource("/tiles/wall.png"));
-
+			//Collision
+			tile[1].collision = true;
+			
 			tile[2] = new Tile();
 			tile[2].image = ImageIO.read(getClass().getResource("/tiles/water.png"));
-
-			//tile[6] = new Tile();
-			//tile[6].image = ImageIO.read(getClass().getResource("/tiles/eyes.png"));
+			tile[2].collision = true;
+			
+			// tile[6] = new Tile();
+			// tile[6].image = ImageIO.read(getClass().getResource("/tiles/eyes.png"));
 
 			tile[3] = new Tile();
 			tile[3].image = ImageIO.read(getClass().getResource("/tiles/earth.png"));
 
 			tile[4] = new Tile();
 			tile[4].image = ImageIO.read(getClass().getResource("/tiles/tree.png"));
+			tile[4].collision = true;
 			
 			tile[5] = new Tile();
 			tile[5].image = ImageIO.read(getClass().getResource("/tiles/sand.png"));
@@ -122,16 +126,16 @@ public class TileManager {
 					&& worldX - gp.finalTile < gp.player.worldX + gp.player.screenX
 					&& worldY + gp.finalTile > gp.player.worldY - gp.player.screenY
 					&& worldY - gp.finalTile < gp.player.worldY + gp.player.screenY) {
+
 				g2.drawImage(tile[tileNum].image, screenX, screenY, gp.finalTile, gp.finalTile, null);
-			
+
 			}
-			
-			
-			//Revisar
-			if (gp.player.screenX == gp.maxWorldCol && gp.player.screenY == gp.maxWorldRow ) {
-				
+
+			// Revisar
+			if (gp.player.screenX == gp.maxWorldCol && gp.player.screenY == gp.maxWorldRow) {
+
 			}
-			
+
 			worldCol++;
 
 			if (worldCol == gp.maxWorldCol) {
