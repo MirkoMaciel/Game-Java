@@ -8,6 +8,7 @@ import java.awt.Graphics2D;
 import javax.swing.JPanel;
 
 import entity.Player;
+import object.SuperObject;
 import tile.TileManager;
 
 public class GamePanel extends JPanel implements Runnable { //Clase que hereda al JPANEL 
@@ -44,6 +45,9 @@ public class GamePanel extends JPanel implements Runnable { //Clase que hereda a
 	//Collision checker
 	public CollisionChecker cChecker = new CollisionChecker(this);
 	
+	//Asseter
+	public AssetSetter aSetter= new AssetSetter(this);
+	
 	//WOLRD SETTING
 	
 	public final int maxWorldCol = 50;
@@ -51,7 +55,10 @@ public class GamePanel extends JPanel implements Runnable { //Clase que hereda a
 	public final int worldWidth = finalTile * maxWorldCol;
 	public final int worldHeigth = finalTile * maxWorldRow;
 	
+	//OBJECTS:
+	public SuperObject obj[] = new SuperObject[10]; //A array with ten objets
 	
+
 	//CONSTRUCTOR
 	
 	public GamePanel () {
@@ -63,6 +70,12 @@ public class GamePanel extends JPanel implements Runnable { //Clase que hereda a
 		this.setFocusable(true); //Defino al panel como el foco al que puede recibir salidas de teclas
 	}
 
+	//Metodo para configurar el gm
+	public void setupGame() {
+		//This method instanced before thread game
+		aSetter.setObject();
+	}
+	
 	public void startGameThread() {
 		gameThread = new Thread(this);
 		gameThread.start();
@@ -152,7 +165,17 @@ public class GamePanel extends JPanel implements Runnable { //Clase que hereda a
 		Graphics2D g2 = (Graphics2D)g; //Defino la class Graphics2D para Grapichs g
 		
 		//Provee funciones más sofisticadas sobre funciones, matematica y geometrica para dibujar
+		//tile
 		tileM.draw(g2); //El background debe ser dibujado antes que el jugador, si no queda detras del background
+		
+		//Object  -- Debe ser dibujado por encima del background cualquier objeto
+		for (int i = 0; i < obj.length ; i++) {
+			if (obj[i] != null) {
+				obj[i].draw(g2,this);
+			}
+		}
+		
+		//Player
 		player.draw(g2);
 		
 		g2.dispose();
