@@ -1,10 +1,9 @@
 package main;
-
 import javax.swing.JFrame;
 
 public class Main {
 
-	public static void main(String[] args) {
+	public static void main(String[] args){
 		// 2DGAME
 		
 		JFrame window = new JFrame();
